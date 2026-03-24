@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://claeb328na83x"]
+
+[ext_resource type="Texture2D" uid="uid://cgnapuo4v1qha" path="res://game_background.png" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://buu3a0iw5cg01" path="res://game.gd" id="1_feb5d"]
+[ext_resource type="Texture2D" uid="uid://c0mdtreeeigbs" path="res://notice_line2.png" id="2_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://b2xj73nucd8j3" path="res://prefabs.tscn" id="2_fc0e3"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_feb5d")
+note_prefab = ExtResource("2_fc0e3")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_80nbo")
+
+[node name="Noticeline" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.07058824)
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("2_e2o6t")
+
+[node name="Combo" type="Label" parent="."]
+offset_left = 3.0
+offset_right = 117.0
+offset_bottom = 35.0
+theme_override_font_sizes/font_size = 25
+text = "Combo: 0"
+
+[node name="Score" type="Label" parent="."]
+offset_left = 1.0
+offset_top = 33.0
+offset_right = 109.0
+offset_bottom = 68.0
+theme_override_font_sizes/font_size = 25
+text = "Score: 0"
+
+[node name="Result" type="Label" parent="."]
+self_modulate = Color(0.023529412, 0.49019608, 1, 0.65882355)
+offset_left = 528.0
+offset_top = 26.0
+offset_right = 621.0
+offset_bottom = 76.0
+theme_override_font_sizes/font_size = 36
+
+[node name="Timer" type="Timer" parent="."]

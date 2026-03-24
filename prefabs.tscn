@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2xj73nucd8j3"]
+
+[ext_resource type="Script" uid="uid://ct0nclhg3yq1r" path="res://prefabs.gd" id="1_xuqos"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vyj6c"]
+size = Vector2(288, 24)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_xuqos")
+speed = 5.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(288, 24)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = -12.0
+offset_right = 144.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15253356, 0.36978662, 0.9999587, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vyj6c")
