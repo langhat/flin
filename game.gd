@@ -3,6 +3,8 @@ extends Node2D
 # ===================== 导出配置（在编辑器中赋值） =====================
 # 背景音乐（拖入音频文件，如mp3/wav）
 @export var bgm: AudioStream
+# 谱子
+@export var beatmap_name: String
 # 音符预制体（仅需Area2D+Sprite2D+CollisionShape2D）
 @export var note_prefab: PackedScene
 # 判定线Y坐标（与场景中视觉判定线一致）
@@ -26,7 +28,7 @@ var judge_score = {
 	"Miss": 0
 }
 # 音符时间轴（存储每个音符的生成时间+轨道）
-var note_timings: Array[Dictionary] = []
+var note_timings = []
 # 活跃音符列表（场景中未判定的音符）
 var active_notes: Array[Area2D] = []
 # 音乐播放器节点（动态创建）
@@ -35,21 +37,75 @@ var music_player: AudioStreamPlayer
 #var score_label: Label
 #var combo_label: Label
 
+# ===================== 通用工具函数：加载并解析JSON文件 =====================
+# 功能：读取文件路径 → 加载文本 → 解析JSON → 统一异常处理
+# 参数：file_path - 文件完整路径（如 res://beatmap/test.json）
+# 返回：解析成功返回JSON数据(Array/Dict)，失败返回 null
+func load_file(file_path: String) -> Variant:
+	# 1. 校验路径是否为空
+	if not file_path:
+		print("❌ 文件路径为空！")
+		return null
+
+	# 2. 打开并读取文件
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if not file:
+		print("❌ 文件打开失败：", file_path)
+		return null
+
+	# 3. 读取文本并关闭文件
+	var file_text = file.get_as_text()
+	file.close()
+
+	# 4. 解析JSON数据
+	var json = JSON.new()
+	var err = json.parse(file_text)
+	if err != OK:
+		print("❌ JSON解析错误：", json.get_error_message(), " | 行号：", json.get_error_line())
+		return null
+
+	# 5. 返回解析完成的数据
+	return json.data
+
+# ===================== 自定义谱面加载（调用通用函数） =====================
+func load_custom_beatmap() -> void:
+	var beatmap_path: String = "res://beatmaps/" + beatmap_name + ".json"
+	
+	# 调用通用load_file加载
+	var beatmap_data = load_file(beatmap_path)
+	
+	# 加载成功：赋值给音符时间轴
+	if beatmap_data != null and beatmap_data is Array:
+		note_timings = beatmap_data
+		print("✅ 成功加载谱面：", beatmap_name, " | 音符数：", note_timings.size())
+	# 加载失败：自动使用测试谱面
+	else:
+		print("▶ 切换为测试谱面")
+		generate_test_note_timings()
+
 # ===================== 初始化 =====================
 func _ready() -> void:
+	if beatmap_name == "":
+		generate_test_note_timings()
+	else:
+		load_custom_beatmap()
+	
+	if bgm == null && (beatmap_name != ""):
+		bgm = load("res://music/" + beatmap_name + ".mp3")
+	
 	music_player = AudioStreamPlayer.new()
 	music_player.name = "BGM_Player"
 	music_player.stream = bgm
 	add_child(music_player)
-	# 5. 生成测试音符时间轴
-	generate_test_note_timings()
-	# 提示：按空格开始游戏
+	
 	print("按空格键开始游戏 | 按键D/F/J/K击中音符")
 
 func _spawn_notes_coroutine() -> void:
+	var last = 0.0
 	for note_data in note_timings:
 		# 等待到音符生成时间
-		await get_tree().create_timer(note_data["time"]).timeout
+		await get_tree().create_timer(note_data["time"]-last).timeout
+		last = note_data["time"]
 		spawn_note(note_data["time"], note_data["lane"])
 
 func spawn_note(timing: float, lane: int) -> void:
@@ -85,11 +141,17 @@ func generate_test_note_timings() -> void:
 		# 随机节拍间隔（0.3-0.8秒）
 		t += randf_range(0.3, 0.8)
 
+var gaming: bool = false
 # ===================== 音乐/游戏控制 =====================
 func _input(event: InputEvent) -> void:
 	# 按空格开始游戏
 	if event.is_action_pressed("game_start"):
-		start_game()
+		if !gaming :
+			gaming = true
+			start_game()
+		else:
+			print(active_notes)
+			pass
 	# 检测轨道按键
 	elif event.is_action_pressed("Z"):
 		judge_note(1)

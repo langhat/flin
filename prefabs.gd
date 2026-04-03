@@ -1,6 +1,7 @@
 extends Area2D
 
 @export var speed: float = 500.0
+@export var judgment_line_y = 600.0
 var judge_time: float = 0.0
 var is_judged: bool = false
 var lane: int
@@ -17,12 +18,13 @@ func _process(delta: float) -> void:
 	
 	# 2. （可选）Miss判定：超出判定线过远则判定为Miss
 	# 可从game.gd传递judgment_line_y，或直接写死（如600）
-#	var judgment_line_y = 600.0
-#	if position.y > judgment_line_y + 100:
-#		is_judged = true
-#		# 通知主脚本更新Miss分数（可选）
-#		get_parent().call("update_score", "Miss")
-#		queue_free()
+	
+	if position.y > judgment_line_y + 200:
+		is_judged = true
+		# 通知主脚本更新Miss分数（可选）
+		get_parent().active_notes.erase(self)
+		get_parent().call("update_score", "Miss")
+		queue_free()
 
 # 外部调用：音符击中判定
 func judge_hit() -> bool:
@@ -32,11 +34,11 @@ func judge_hit() -> bool:
 	# 计算判定偏差
 	var diff = abs(position.y - 563)
 	var result = "Miss"
-	if diff < 3:
+	if diff < 9:
 		result = "Perfect"
-	elif diff < 9:
-		result = "Great"
 	elif diff < 27:
+		result = "Great"
+	elif diff < 81:
 		result = "Good"
 	
 	# 通知主脚本更新分数

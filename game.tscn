@@ -7,7 +7,9 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_feb5d")
+beatmap_name = "cherry_pop2"
 note_prefab = ExtResource("2_fc0e3")
+music_duration = 95.0
 
 [node name="Background" type="TextureRect" parent="."]
 offset_right = 1152.0
@@ -44,3 +46,5 @@ offset_bottom = 76.0
 theme_override_font_sizes/font_size = 36
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Timer2" type="Timer" parent="."]

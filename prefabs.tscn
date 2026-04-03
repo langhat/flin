@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2xj73nucd8j3"]
+[gd_scene load_steps=4 format=3 uid="uid://b2xj73nucd8j3"]
 
 [ext_resource type="Script" uid="uid://ct0nclhg3yq1r" path="res://prefabs.gd" id="1_xuqos"]
+[ext_resource type="Texture2D" uid="uid://m1s56ssrin4w" path="res://sound_line.png" id="2_j1mxp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vyj6c"]
 size = Vector2(288, 24)
@@ -10,6 +11,7 @@ script = ExtResource("1_xuqos")
 speed = 5.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 custom_minimum_size = Vector2(288, 24)
 anchors_preset = 8
 anchor_left = 0.5
@@ -26,3 +28,10 @@ color = Color(0.15253356, 0.36978662, 0.9999587, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_vyj6c")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -144.0
+offset_top = -12.0
+offset_right = 144.0
+offset_bottom = 12.0
+texture = ExtResource("2_j1mxp")
