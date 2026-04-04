@@ -7,7 +7,7 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_feb5d")
-beatmap_name = "cherry_pop2"
+beatmap_name = "reincarnated_apple"
 note_prefab = ExtResource("2_fc0e3")
 music_duration = 95.0
 
@@ -16,8 +16,9 @@ offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("1_80nbo")
 
-[node name="Noticeline" type="TextureRect" parent="."]
+[node name="Noticeline" type="TextureRect" parent="Background"]
 self_modulate = Color(1, 1, 1, 0.07058824)
+layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("2_e2o6t")

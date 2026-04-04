@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://htenoe06alvj"]
+
+[ext_resource type="Texture2D" uid="uid://cgnapuo4v1qha" path="res://game_background.png" id="1_1b0tk"]
+[ext_resource type="Script" uid="uid://bhcun0vg6w20o" path="res://choose.gd" id="1_20uec"]
+[ext_resource type="Texture2D" uid="uid://c0mdtreeeigbs" path="res://notice_line2.png" id="2_3aj1w"]
+[ext_resource type="Script" uid="uid://bub7lutks7gaf" path="res://into_songs.gd" id="4_dyeh0"]
+
+[node name="Choose" type="Node2D"]
+script = ExtResource("1_20uec")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_1b0tk")
+
+[node name="Noticeline" type="TextureRect" parent="Background"]
+self_modulate = Color(1, 1, 1, 0.07058824)
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("2_3aj1w")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 316.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 25
+text = "Cherry Pop"
+
+[node name="Into Songs" type="LineEdit" parent="."]
+offset_left = 1.0
+offset_top = 558.0
+offset_right = 1152.0
+offset_bottom = 649.0
+script = ExtResource("4_dyeh0")

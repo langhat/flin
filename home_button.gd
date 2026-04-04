@@ -13,5 +13,5 @@ func _process(delta: float) -> void:
 
 func _on_pressed():
 	get_parent().number.text="..."
-	get_tree().change_scene_to_file("res://game.tscn")
+	get_tree().change_scene_to_file("res://choose.tscn")
 	pass

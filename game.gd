@@ -85,6 +85,9 @@ func load_custom_beatmap() -> void:
 
 # ===================== 初始化 =====================
 func _ready() -> void:
+	if get_tree().has_meta("selected_song"):
+		beatmap_name = get_tree().get_meta("selected_song")
+	
 	if beatmap_name == "":
 		generate_test_note_timings()
 	else:
