@@ -13,6 +13,14 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+func check_contains(arg1: String, arg2: String) -> bool:
+	var processed_arg1 = arg1.replace(" ", "").to_lower()
+	var processed_arg2 = arg2.replace(" ", "").to_lower()
+	return processed_arg1.contains(processed_arg2)
+
+
 func _on_text_submitted(current : String) -> void:
-	get_tree().set_meta("selected_song", songsMap[current])
-	get_tree().change_scene_to_file("res://game.tscn")
+	for each in songsMap:
+		if check_contains(each, current):
+			get_tree().set_meta("selected_song", songsMap[each])
+			get_tree().change_scene_to_file("res://game.tscn")
