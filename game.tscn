@@ -16,6 +16,10 @@ offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("1_80nbo")
 
+[node name="Line2D" type="Line2D" parent="Background"]
+points = PackedVector2Array(0, 559, 1152, 558)
+default_color = Color(0.7764706, 0.7764706, 0.7764706, 1)
+
 [node name="Noticeline" type="TextureRect" parent="Background"]
 self_modulate = Color(1, 1, 1, 0.07058824)
 layout_mode = 0

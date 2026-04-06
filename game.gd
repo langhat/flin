@@ -95,6 +95,7 @@ func _ready() -> void:
 	
 	if bgm == null && (beatmap_name != ""):
 		bgm = load("res://music/" + beatmap_name + ".mp3")
+		$Background.texture=load("res://backgrounds/" + beatmap_name + ".png")
 	
 	music_player = AudioStreamPlayer.new()
 	music_player.name = "BGM_Player"
