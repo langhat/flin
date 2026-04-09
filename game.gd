@@ -181,6 +181,23 @@ func start_game() -> void:
 	_spawn_notes_coroutine()
 
 func judge_note(index: int) -> void:
+	
+	var my_sprite = Sprite2D.new()
+	
+	my_sprite.texture = preload("res://click.png") 
+	
+	my_sprite.position = Vector2(lane_x[index-1], judgment_line_y)  # 屏幕中心位置
+	
+	add_child(my_sprite)
+	
+	get_tree().create_timer(0.1).timeout.connect(
+		func() :
+			var sp = my_sprite
+			sp.visible = false
+			remove_child(sp)
+			sp.queue_free()
+	)
+	
 	# 1. 校验轨道索引有效性（1-4）
 	if index < 1 or index > 4:
 		return
@@ -205,6 +222,7 @@ func judge_note(index: int) -> void:
 	
 	if target_note.judge_hit():
 		active_notes.erase(target_note)
+	
 	
 # ===================== 分数与连击更新 =====================
 func update_score(judge_level: String) -> void:

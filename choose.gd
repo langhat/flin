@@ -4,7 +4,9 @@ extends Node2D
 	"Cherry Pop / 樱桃汽水 / チェリーポップ": "cherry_pop2",
 	"转世林檎": "reincarnated_apple",
 	"Lagtrain / 迟延列车 / 延误列车 / ラグトレイン": "lagtrain",
-	"Yurail / 冲绳单轨 / ユレール" : "yurail"
+	"Yurail / 冲绳单轨 / ユレール" : "yurail",
+	"Mousou Zei / 妄想税 / もうそうぜい" : "mousou_zei",
+	"Nee Nee Nee. / 呐呐呐。 / ねぇねぇねぇ。" : "nee_nee_nee"
 }
 
 # Called when the node enters the scene tree for the first time.
