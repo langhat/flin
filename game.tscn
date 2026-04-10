@@ -11,6 +11,11 @@ beatmap_name = "reincarnated_apple"
 note_prefab = ExtResource("2_fc0e3")
 music_duration = 95.0
 
+[node name="PV" type="VideoStreamPlayer" parent="."]
+offset_right = 1153.0
+offset_bottom = 649.0
+expand = true
+
 [node name="Background" type="TextureRect" parent="."]
 offset_right = 1152.0
 offset_bottom = 648.0

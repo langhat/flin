@@ -41,9 +41,9 @@ func judge_hit() -> bool:
 	var result = "Miss"
 	if diff < 9:
 		result = "Perfect"
-	elif diff < 27:
+	elif diff < 18:
 		result = "Great"
-	elif diff < 81:
+	elif diff < 56:
 		result = "Good"
 	
 	# 通知主脚本更新分数
