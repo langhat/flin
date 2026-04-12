@@ -6,7 +6,8 @@ extends Node2D
 	"Lagtrain / 迟延列车 / 延误列车 / ラグトレイン": "lagtrain",
 	"Yurail / 冲绳单轨 / ユレール" : "yurail",
 	"Mousou Zei / 妄想税 / もうそうぜい" : "mousou_zei",
-	"Nee Nee Nee. / 呐呐呐。 / ねぇねぇねぇ。" : "nee_nee_nee"
+	"Nee Nee Nee. / 呐呐呐。 / ねぇねぇねぇ。" : "nee_nee_nee",
+	"Little Match Reseller / 卖火柴的倒爷 / マッチ売りの転売ヤー" : "little_match_reseller"
 }
 
 # Called when the node enters the scene tree for the first time.
