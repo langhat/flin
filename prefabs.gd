@@ -19,9 +19,10 @@ func _process(delta: float) -> void:
 	position.y += speed * delta
 	
 	# auto play
-#	var diff = abs(position.y - 563)
-#	if diff < 12:
-#		get_parent().judge_note(lane)
+	if get_parent().auto:
+		var diff = abs(position.y - 563)
+		if diff < 12:
+			get_parent().judge_note(lane)
 	
 	# 2. （可选）Miss判定：超出判定线过远则判定为Miss
 	# 可从game.gd传递judgment_line_y，或直接写死（如600）

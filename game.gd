@@ -8,6 +8,7 @@ extends Node2D
 @export var judgment_line_y: float = 563.0
 @export var note_speed: float = 750.0
 @export var music_duration: float = 60.0
+@export var auto: bool = false
 
 
 var lane_x = [144, 144+288, 144+288*2, 144+288*3]
@@ -25,6 +26,7 @@ var judge_score = {
 var note_timings = []
 var active_notes: Array[Area2D] = []
 var music_player: AudioStreamPlayer
+var hp = 20
 
 # ===================== 通用工具函数：加载并解析JSON文件 =====================
 # 功能：读取文件路径 → 加载文本 → 解析JSON → 统一异常处理
@@ -67,6 +69,7 @@ func load_custom_beatmap() -> void:
 		generate_test_note_timings()
 
 func _ready() -> void:
+	$hp.text = "20"
 	if get_tree().has_meta("selected_song"):
 		beatmap_name = get_tree().get_meta("selected_song")
 	
@@ -84,6 +87,8 @@ func _ready() -> void:
 	music_player.name = "BGM_Player"
 	music_player.stream = bgm
 	add_child(music_player)
+	
+	music_player.finished.connect(end_count)
 	
 	print("按空格键开始游戏 | 按键D/F/J/K击中音符")
 
@@ -248,13 +253,18 @@ func judge_slip() -> void:
 		if note.slip():
 			active_notes.erase(note)
 	
-
+var ap: bool = true
 func update_score(judge_level: String) -> void:
 	score += judge_score[judge_level]
 	if judge_level == "Miss":
+		hp -= 1
+		$hp.text = str(hp)
 		combo = 0
 	else:
 		combo += 1
+	
+	if judge_level != "Perfect":
+		ap = false
 	
 	$Combo.text = "COMBO: " + str(combo)
 	$Score.text = "SCOPE: " + str(score)
@@ -263,4 +273,12 @@ func update_score(judge_level: String) -> void:
 	$Timer.start(2.5)
 	await $Timer.timeout
 	$Result.text = ""
-	
+
+func end_count():
+	if ap:
+		$Result.text = "All Perfect"
+	elif hp == 20:
+		$Result.text = "Full Combo"
+	else:
+		$Result.text = str(score)
+	pass
