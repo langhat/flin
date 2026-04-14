@@ -7,7 +7,8 @@ extends Node2D
 	"Yurail / 冲绳单轨 / ユレール" : "yurail",
 	"Mousou Zei / 妄想税 / もうそうぜい" : "mousou_zei",
 	"Nee Nee Nee. / 呐呐呐。 / ねぇねぇねぇ。" : "nee_nee_nee",
-	"Little Match Reseller / 卖火柴的倒爷 / マッチ売りの転売ヤー" : "little_match_reseller"
+	"Little Match Reseller / 卖火柴的倒爷 / マッチ売りの転売ヤー" : "little_match_reseller",
+	"Spot Late / 晚聚焦点" : "spot_late"
 }
 
 # Called when the node enters the scene tree for the first time.

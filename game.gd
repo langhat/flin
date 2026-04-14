@@ -3,8 +3,10 @@ extends Node2D
 @export var bgm: AudioStream
 @export var beatmap_name: String
 @export var note_prefab: PackedScene
+@export var note_prefab_red: PackedScene
+@export var note_prefab_yellow: PackedScene
 @export var judgment_line_y: float = 563.0
-@export var note_speed: float = 500.0
+@export var note_speed: float = 750.0
 @export var music_duration: float = 60.0
 
 
@@ -91,14 +93,23 @@ func _spawn_notes_coroutine() -> void:
 		
 		await get_tree().create_timer(note_data["time"]-last).timeout
 		last = note_data["time"]
-		spawn_note(note_data["time"], note_data["lane"])
+		if note_data.get("type"):
+			spawn_note(note_data["time"], note_data["lane"], note_data["type"])
+		else:
+			spawn_note(note_data["time"], note_data["lane"], "blue")
 
-func spawn_note(timing: float, lane: int) -> void:
+func spawn_note(timing: float, lane: int, type: String) -> void:
 	if not note_prefab:
 		print("未赋值音符预制体！")
 		return
 	
-	var note = note_prefab.instantiate() as Area2D
+	var note
+	if type == "blue":
+		note = note_prefab.instantiate() as Area2D
+	else: if type == "red":
+		note = note_prefab_red.instantiate() as Area2D
+	elif type == "yellow":
+		note = note_prefab_yellow.instantiate() as Area2D
 	var fall_length = judgment_line_y + 100
 	
 	note.set("lane", lane)
@@ -131,14 +142,29 @@ func _input(event: InputEvent) -> void:
 		else:
 			print(active_notes)
 			pass
-	elif event.is_action_pressed("Z"):
+			
+	if event.is_action_pressed("D"):
 		judge_note(1)
-	elif event.is_action_pressed("C"):
+	elif event.is_action("D"):
+		judge_yellow_note(1)
+	
+	if event.is_action_pressed("F"):
 		judge_note(2)
-	elif event.is_action_pressed("B"):
+	elif event.is_action("F"):
+		judge_yellow_note(2)
+	
+	if event.is_action_pressed("J"):
 		judge_note(3)
-	elif event.is_action_pressed("M"):
+	elif event.is_action("J"):
+		judge_yellow_note(3)
+	
+	if event.is_action_pressed("K"):
 		judge_note(4)
+	elif event.is_action("K"):
+		judge_yellow_note(4)
+	
+	if event.is_action_pressed("XVN"):
+		judge_slip()
 
 func start_game() -> void:
 	score = 0
@@ -190,11 +216,39 @@ func judge_note(index: int) -> void:
 	
 	if not target_note:
 		return
-	
 	if target_note.judge_hit():
 		active_notes.erase(target_note)
+
+func judge_yellow_note(index: int) -> void:
+	if index < 1 or index > 4:
+		return
+	
+	var target_note: Area2D = null
+	var min_diff = 99999
+	
+	for note in active_notes:
+		if note.get("lane") != index || note.get("type") != "yellow":
+			continue
+		var diff = abs(note.position.y - judgment_line_y)
+		if diff < min_diff:
+			min_diff = diff
+			target_note = note
 	
 	
+	if not target_note:
+		return
+	if target_note.judge_hit():
+		active_notes.erase(target_note)
+
+func judge_slip() -> void:
+	
+	for note in active_notes:
+		if note.get("type") != "red":
+			continue
+		if note.slip():
+			active_notes.erase(note)
+	
+
 func update_score(judge_level: String) -> void:
 	score += judge_score[judge_level]
 	if judge_level == "Miss":

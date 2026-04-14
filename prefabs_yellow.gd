@@ -6,7 +6,7 @@ var judge_time: float = 0.0
 var is_judged: bool = false
 var lane: int
 
-const type: String = "blue"
+const type: String = "yellow"
 
 func _ready() -> void:
 	pass
@@ -41,12 +41,8 @@ func judge_hit() -> bool:
 	# 计算判定偏差
 	var diff = abs(position.y - 563)
 	var result = "Miss"
-	if diff < 12:
+	if diff < 56:
 		result = "Perfect"
-	elif diff < 24:
-		result = "Great"
-	elif diff < 56:
-		result = "Good"
 	
 	# 通知主脚本更新分数
 	if result == "Miss":

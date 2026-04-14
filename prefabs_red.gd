@@ -5,8 +5,9 @@ extends Area2D
 var judge_time: float = 0.0
 var is_judged: bool = false
 var lane: int
+var canx: bool = false
 
-const type: String = "blue"
+const type: String = "red"
 
 func _ready() -> void:
 	pass
@@ -26,7 +27,7 @@ func _process(delta: float) -> void:
 	# 2. （可选）Miss判定：超出判定线过远则判定为Miss
 	# 可从game.gd传递judgment_line_y，或直接写死（如600）
 	
-	if position.y > judgment_line_y + 100:
+	if position.y > judgment_line_y + 300:
 		is_judged = true
 		# 通知主脚本更新Miss分数（可选）
 		get_parent().active_notes.erase(self)
@@ -52,10 +53,15 @@ func judge_hit() -> bool:
 	if result == "Miss":
 		return false
 	
-	is_judged = true
+	speed *= 0.5
+	
 	get_parent().call("update_score", result)
-	queue_free()
-	return true
+	canx = true
+	return false
 
 func slip() -> bool:
+	if canx:
+		is_judged = true
+		queue_free()
+		return true
 	return false

@@ -1,14 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://claeb328na83x"]
+[gd_scene load_steps=7 format=3 uid="uid://claeb328na83x"]
 
 [ext_resource type="Texture2D" uid="uid://cgnapuo4v1qha" path="res://game_background.png" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://buu3a0iw5cg01" path="res://game.gd" id="1_feb5d"]
 [ext_resource type="Texture2D" uid="uid://c0mdtreeeigbs" path="res://notice_line2.png" id="2_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://b2xj73nucd8j3" path="res://prefabs.tscn" id="2_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://bj47hkaxokvrb" path="res://prefabs_red.tscn" id="3_7jktm"]
+[ext_resource type="PackedScene" uid="uid://r8342wbva81p" path="res://prefabs_yellow.tscn" id="4_ryrav"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_feb5d")
 beatmap_name = "reincarnated_apple"
 note_prefab = ExtResource("2_fc0e3")
+note_prefab_red = ExtResource("3_7jktm")
+note_prefab_yellow = ExtResource("4_ryrav")
 music_duration = 95.0
 
 [node name="PV" type="VideoStreamPlayer" parent="."]

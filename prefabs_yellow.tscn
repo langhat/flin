@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2xj73nucd8j3"]
+[gd_scene load_steps=4 format=3 uid="uid://r8342wbva81p"]
 
-[ext_resource type="Script" uid="uid://ct0nclhg3yq1r" path="res://prefabs.gd" id="1_xuqos"]
-[ext_resource type="Texture2D" uid="uid://m1s56ssrin4w" path="res://sound_line.png" id="2_j1mxp"]
+[ext_resource type="Script" uid="uid://c8abf40cj50vt" path="res://prefabs_yellow.gd" id="1_3em7u"]
+[ext_resource type="Texture2D" uid="uid://km8paf40bowg" path="res://note_yellow.png" id="2_3em7u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vyj6c"]
 size = Vector2(288, 24)
 
 [node name="Area2D" type="Area2D"]
-script = ExtResource("1_xuqos")
+script = ExtResource("1_3em7u")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -33,4 +33,4 @@ offset_left = -144.0
 offset_top = -12.0
 offset_right = 144.0
 offset_bottom = 12.0
-texture = ExtResource("2_j1mxp")
+texture = ExtResource("2_3em7u")
